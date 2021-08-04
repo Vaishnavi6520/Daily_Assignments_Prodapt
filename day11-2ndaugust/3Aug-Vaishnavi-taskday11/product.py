@@ -1,71 +1,48 @@
 import re
+from datetime import datetime
+productlist=[]
+class ProductDetails:
+    def addProductDetails(self,name,description,price,manufactureDate,expireDate):
+        dict={"name":name,"description":description,"price":price,"manufactureDate":manufactureDate,"expireDate":expireDate}
+        productlist.append(dict)
 
-import pytz
-
-from datetime import datetime,time
-
-products = [ ]
-
-class Product_Details:
-    def add_products(self,p_name,description,price,manufacturer):
-        self.p_name = p_name
-        self.description=description
-        self.price=price
-        self.manufacturer = manufacturer
-        return
-    def timeDate(time_zone,td):
-        time_zone = pytz.timezone("Asia/kolkata")
-        td = datetime.now(time_zone).strftime("%d-%h-%Y")
-        return td
-
-class Date_manufacturing(Product_Details):
-    def MRP(self,Manuf_Date,Expiry_Date):
-        self.Manuf_Date=Manuf_Date
-        self.Expiry_Date =Expiry_Date
-        return
-    def validation(self,val,val1):
-        self.val = val(re.search("2021$",Manuf_Date))
-        self.val1 = val1(re.search("2022$",Expiry_Date))
-        return 
-
-PD = Product_Details()
-DM = Date_manufacturing()
+obj=ProductDetails()
 
 while(True):
-    
-    print("1.Add product details: ")
-    print("2.Displaying all the product: ")
-    print("3.Searching products: ")
-    print("4.List all the product that expire today")
+    print("1.Add Product")
+    print("2.View all the Product")
+    print("3.Search Product based on name")
+    print("4.List all the Today Expire Product")
     print("5.Exit")
-    choice = int(input("Enter your choice: "))
+    option=int(input("Enter your option :"))
+    if option==1:
+        name = input("Enter the name of the product:")
+        description =  input("Enter the description of the product:")
+        price=int(input("Enter the price of the product:"))
+        manufactureDate=input("Enter the manufacturing data of the product:")
+        expireDate=input("Enter the expire data of the product:")
+        obj.addProductDetails(name,description,price,manufactureDate,expireDate)
+        def validate(name,price):
+            name1=re.search("[A-Z]{1}[^A-Za-z]{0,25}$",name)
+            price1=re.search("[0-9]{0,7}$",price)
+            if name1 and price1:
+                return True
+            else:
+                return False
 
-    if choice == 1:
-        print("Selected to add product details")
-        p_name = input("enter a name of the product: ")
-        description = input("enter a description: ")
-        price = input("Enter a price of product: ")
-        manufacturer = input("Enter manufacturer Name: ")
-        Manuf_Date = input("Enter a manufactured date: ",)
-        Expiry_Date = input("Enter expiry date: ")
+    if option==2:
+        print(productlist)
 
-        time_date =PD.timeDate("td")
+    if option==3:
+        pname=input("Ënter the  product name to search:")
+        print(list(filter(lambda i:i["name"]==pname,productlist)))
 
-        details ={"Product Name":p_name,"Description":description,"Prize":price,
-        "manufacturer":manufacturer,"MRP Date":Manuf_Date,"Expire Date":Expiry_Date,"Time and date":time_date}
-        products.append(details)
+    if option==4:
+        current_time=datetime.localtime()
+        tday=datetime.strftime("%d.%m.%Y",current_time)
+        expire=(list(filter(lambda i:i["expireDate"]==str(tday),productlist)))
+        print(expire)
         
-    if choice == 2:
-        print("List of all the products")
-        print(products)
-    if choice == 3:
-        print("To search specific product details")
-        name = input("enter a product Name: ")
-        print(list(filter(lambda i : i ["Product Name"]==name,products)))
 
-    if choice == 4:
-        print("To check a expired product")
-        Time = PD.timeDate("td")
-        print(list(filter(lambda j : j ["Expire Date"]==Time,products)))
-    if choice == 5:
+    if option==5:
         break
