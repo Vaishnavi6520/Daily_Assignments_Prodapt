@@ -1,4 +1,4 @@
-import multiprocessing
+import multiprocessing,logging
 start=2
 end=500
 def primeNumbers(start,end):
@@ -22,13 +22,18 @@ def palindrome(start,end):
         if(num == reverse):
             print("%d " %num, end = '  ')
 if __name__=='__main__':
-    t1=multiprocessing.Process(target=primeNumbers,args=(start,end)) # create a thread
-    t2=multiprocessing.Process(target=palindrome,args=(start,end)) # create a thread
+    try:
+        t1=multiprocessing.Process(target=primeNumbers,args=(start,end)) # create a thread
+        t2=multiprocessing.Process(target=palindrome,args=(start,end)) # create a thread
 
-    t1.start()
-    t2.start()
+        t1.start()
+        t2.start()
 
-    t1.join()
-    t2.join()
+        t1.join()
+        t2.join()
 
-print("Done!")
+        print("Done!")
+    except:
+        logging.error("Wrong Input")
+    finally:
+        print("Complete Successfully")

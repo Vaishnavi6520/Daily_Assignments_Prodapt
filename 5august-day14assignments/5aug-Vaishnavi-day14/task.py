@@ -1,4 +1,5 @@
-import threading
+import threading,logging
+
 start=2
 end=500
 def primeNumbers(start,end):
@@ -10,11 +11,31 @@ def primeNumbers(start,end):
             else:
                 print(i)
 
-t1=threading.Thread(target=primeNumbers,args=(start,end)) # create a thread
+def palindrome(start,end):
+    for num in range(start, end + 1):
+        temp = num
+        reverse = 0
+    
+        while(temp > 0):
+            Reminder = temp % 10
+            reverse = (reverse * 10) + Reminder
+            temp = temp //10
 
-t1.start()
+        if(num == reverse):
+            print("%d " %num, end = '  ')
 
-t1.join()
+try:
+    t1=threading.Thread(target=primeNumbers,args=(start,end)) # create a thread
+    t2=threading.Thread(target=palindrome,args=(start,end)) # create a thread
 
-print("Done!")
-# printNumbers()
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+
+    print("Done!")
+except:
+    logging.error("Wrong Input")
+finally:
+    print("Completed!")
