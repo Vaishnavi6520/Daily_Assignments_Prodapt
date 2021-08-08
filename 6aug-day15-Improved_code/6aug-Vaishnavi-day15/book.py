@@ -15,14 +15,14 @@ try:
         print("3.Search a book :")
         print("4.list all the book in alphabet order :")
         print("5.exit :")
-        choice=int(input("enter your choice:"))
+        choice=int(input("Enter your choice:"))
         if choice==1:
-            bookname=input("enter the book name - ")
-            discription=input("enter the description of book - ")
-            price=input("enter the price - ")
-            book_distributer=input("enter the book_distributer name - ")
-            publisher=input("enter the publisher name -")
-            publisher_date=input("enter the publisher date - ")
+            bookname=input("Enter the book name - ")
+            discription=input("Enter the description of book - ")
+            price=input("Enter price - ")
+            book_distributer=input("Enter the book distributer name - ")
+            publisher=input("Enter the publisher name -")
+            publisher_date=input("Enter the published date - ")
             def val(price):
                 v=re.search("^[1-9]",price)
                 if v:
@@ -31,10 +31,10 @@ try:
         if choice==2:
             print(booklist)
         if choice==3:
-            S=input("enter the book to search - ")
+            S=input("Enter the book to search - ")
             print(list(filter(lambda i:i["bookname"]==S,booklist)))
         if choice==4:
-            print("list all the book in alphabetic order - ")
+            print("View all the book in alphabetic order - ")
             print(sorted(booklist,key=lambda i:i["bookname"],reverse=False))
             # booklist.sort(key=lambda x: x.split()[2][1],reverse=True)
         if choice ==5:
